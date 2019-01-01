@@ -6,7 +6,7 @@ use Drupal\social_auth\AuthManager\OAuth2Manager;
 use Drupal\Core\Config\ConfigFactory;
 
 /**
- * Contains all the logic for Unsplash login integration.
+ * Contains all the logic for Unsplash OAuth2 authentication.
  */
 class UnsplashAuthManager extends OAuth2Manager {
 
@@ -53,7 +53,7 @@ class UnsplashAuthManager extends OAuth2Manager {
       }
     }
 
-    // Returns the URL where user will be redirected.
+    // Returns the URL where the user will be redirected.
     return $this->client->getAuthorizationUrl([
       'scope' => $scopes,
     ]);
@@ -63,23 +63,19 @@ class UnsplashAuthManager extends OAuth2Manager {
    * {@inheritdoc}
    */
   public function requestEndPoint($path) {
-    $url = 'https://api.unsplash.com' . $path;
+    $token = $this->getAccessToken();
+    $url = 'https://api.unsplash.com' . $path . '?access_token=' . $token;
 
-    $request = $this->client->getAuthenticatedRequest('GET', $url, $this->getAccessToken());
+    $request = $this->client->getAuthenticatedRequest('GET', $url, $token);
 
-    $response = $this->client->getResponse($request);
-
-    return $response->getBody()->getContents();
+    return $this->client->getParsedResponse($request);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getState() {
-    $state = $this->client->getState();
-
-    // Generate and return the URL where we should redirect the user.
-    return $state;
+    return $this->client->getState();
   }
 
 }

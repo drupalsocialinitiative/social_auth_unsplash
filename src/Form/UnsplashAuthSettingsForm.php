@@ -120,10 +120,21 @@ class UnsplashAuthSettingsForm extends SocialAuthSettingsForm {
       '#type' => 'textarea',
       '#title' => $this->t('Scopes for API call'),
       '#default_value' => $config->get('scopes'),
-      '#description' => $this->t('Define any additional scopes to be requested, separated by a plus (e.g.: public+read_user).<br>
+      '#description' => $this->t('Define any additional scopes to be requested, separated by a comma (e.g.: public,read_user).<br>
                                   \'public\' scope added by default and always requested.<br>
                                   You can see the full list of valid scopes and their description <a href="@scopes">here</a>.', ['@scopes' => 'https://unsplash.com/documentation#permission-scopes']),
     ];
+
+    $form['unsplash_settings']['advanced']['endpoints'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('API calls to be made to collect data'),
+      '#default_value' => $config->get('endpoints'),
+      '#description' => $this->t('Define the Endpoints to be requested when user authenticates with Unsplash for the first time<br>
+                                  Enter each endpoint in different lines in the format <em>endpoint</em>|<em>name_of_endpoint</em>.<br>
+                                  <b>For instance:</b><br>
+                                  /photos|photos_list<br>'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -136,6 +147,7 @@ class UnsplashAuthSettingsForm extends SocialAuthSettingsForm {
       ->set('client_id', $values['client_id'])
       ->set('client_secret', $values['client_secret'])
       ->set('scopes', $values['scopes'])
+      ->set('endpoints', $values['endpoints'])
       ->save();
 
     parent::submitForm($form, $form_state);

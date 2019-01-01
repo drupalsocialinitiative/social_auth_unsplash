@@ -11,8 +11,8 @@ use Drupal\social_auth\Controller\SocialAuthController;
 /**
  * Implements hook_requirements().
  *
- * This hook allows to check if the required libraries for your implementer
- * has been downloaded.
+ * Checks that a compatible version of PHP League OAuth2 Unsplash library is
+ * available. Check installation instructions in README.txt.
  */
 function social_auth_unsplash_requirements($phase) {
   $requirements = [];
@@ -33,7 +33,7 @@ function social_auth_unsplash_requirements($phase) {
  * Implements hook_install().
  */
 function social_auth_unsplash_install() {
-  SocialAuthController::setLoginButtonSettings('social_auth_unsplash', 'social_auth_unsplash.redirect_to_unsplash', './img/Unsplash.svg');
+  SocialAuthController::setLoginButtonSettings('social_auth_unsplash', 'social_auth_unsplash.redirect_to_unsplash', 'img/unsplash_logo.svg');
 }
 
 /**

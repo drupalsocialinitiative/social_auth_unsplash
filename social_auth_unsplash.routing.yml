@@ -1,7 +1,7 @@
 social_auth_unsplash.redirect_to_unsplash:
   path: 'user/login/unsplash'
   defaults:
-    _controller: '\Drupal\social_auth_unsplash\Controller\UnsplashAuthController::redirectToUnsplash'
+    _controller: '\Drupal\social_auth_unsplash\Controller\UnsplashAuthController::redirectToProvider'
   requirements:
     # Anonymous users can log in, but authenticated users can also associate a new provider.
     _access: 'TRUE'
