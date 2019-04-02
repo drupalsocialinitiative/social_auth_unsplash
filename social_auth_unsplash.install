@@ -5,29 +5,7 @@
  * Install and uninstall functions for the Unsplash Login module.
  */
 
-use Drupal\social_api\Utility\SocialApiImplementerInstaller;
 use Drupal\social_auth\Controller\SocialAuthController;
-
-/**
- * Implements hook_requirements().
- *
- * Checks that a compatible version of PHP League OAuth2 Unsplash library is
- * available. Check installation instructions in README.txt.
- */
-function social_auth_unsplash_requirements($phase) {
-  $requirements = [];
-
-  // Social API should be installed at this point in order to check library.
-  \Drupal::service('module_installer')->install(['social_api']);
-
-  // When the site builder wants to enable this module.
-  if ($phase == 'install') {
-    // We check that the required library was downloaded beforehand.
-    $requirements = SocialApiImplementerInstaller::checkLibrary('social_auth_unsplash', 'Social Auth Unsplash', 'hughbertd/oauth2-unsplash', 1.0, 1.2);
-  }
-
-  return $requirements;
-}
 
 /**
  * Implements hook_install().
