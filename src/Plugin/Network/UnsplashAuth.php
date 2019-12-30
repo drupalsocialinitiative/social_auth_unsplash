@@ -43,7 +43,7 @@ class UnsplashAuth extends NetworkBase implements UnsplashAuthInterface {
       throw new SocialApiException(sprintf('The Unsplash library for PHP League OAuth2 not found. Class: %s.', $class_name));
     }
 
-    /* @var \Drupal\social_auth_unsplash\Settings\UnsplashAuthSettings $settings */
+    /** @var \Drupal\social_auth_unsplash\Settings\UnsplashAuthSettings $settings */
     $settings = $this->settings;
 
     if ($this->validateConfig($settings)) {
